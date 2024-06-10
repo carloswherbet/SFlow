@@ -9,7 +9,7 @@ require 'tty_integration.rb'
 module Config
   extend TtyIntegration
   def self.init
-    project_name = cmd.run!("git remote -v | head -n1 | awk '{print $2}' | sed -e 's,.*:\(.*/\)\?,,' -e 's/\.git$//'").out
+    project_name = cmd.run!("git remote -v | grep origin | head -n1 | awk '{print $2}' | sed -e 's,.*:\(.*/\)\?,,' -e 's/\.git$//'").out
     file = "#{Dir.home}/.config/gitsflow/#{project_name.gsub("\n","")}/config.yml"
     config = TTY::Config.new
     config.filename = file
